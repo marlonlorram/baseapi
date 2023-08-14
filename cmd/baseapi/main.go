@@ -11,6 +11,7 @@ import (
 
 	"github.com/marlonlorram/baseapi/config"
 	"github.com/marlonlorram/baseapi/ports"
+	"github.com/marlonlorram/baseapi/ports/database"
 	"github.com/marlonlorram/baseapi/server"
 )
 
@@ -25,6 +26,7 @@ func newApp(ctx context.Context) *fx.App {
 		}),
 
 		config.Build(),
+		database.Build(),
 		ports.Build(),
 		server.Build(),
 	)

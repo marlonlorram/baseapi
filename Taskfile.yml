@@ -32,6 +32,14 @@ tasks:
     env:
       SERVER_ADDR: 0.0.0.0:7788
 
+      # Database
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 27017
+      DATABASE_USER: baseapi
+      DATABASE_PASS: baseapi
+      DATABASE_NAME: baseapiMM
+      DATABASE_MECH: SCRAM-SHA-1
+
     cmds:
       - |
         # Executar a aplicação

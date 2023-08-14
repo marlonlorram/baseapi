@@ -15,11 +15,23 @@ var Prefix string
 // Config representa a configuração geral da aplicação.
 type Config struct {
 	Server Server `envconfig:"SERVER"`
+
+	Database Database `envconfig:"DATABASE"`
 }
 
 // Server define as propriedades de configuração do servidor.
 type Server struct {
 	Address string `envconfig:"ADDR" default:"0.0.0.0:7788" desc:"Endereço de escuta do servidor"`
+}
+
+// Database representa as configurações necessárias para estabelecer uma conexão com o banco de dados.
+type Database struct {
+	Host string `envconfig:"HOST" required:"true" desc:"Hostname ou IP do servidor do banco de dados"`
+	Port int    `envconfig:"PORT" required:"true" desc:"Porta do servidor do banco de dados"`
+	User string `envconfig:"USER" required:"true" desc:"Usuário para autenticação no banco de dados"`
+	Pass string `envconfig:"PASS" required:"true" desc:"Senha para autenticação no banco de dados"`
+	Name string `envconfig:"NAME" required:"true" desc:"Nome do banco de dados"`
+	Mech string `envconfig:"MECH" required:"false" desc:"Mecanismo de autenticação do banco de dados (opcional)"`
 }
 
 // parseConfig lê as variáveis de ambiente, popula a Config e

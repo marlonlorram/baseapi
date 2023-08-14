@@ -10,16 +10,13 @@ import (
 type Version struct{}
 
 // getVersion obtém a versão atual da aplicação.
-func (v *Version) getVersion(ctx *gin.Context) {
-	ctx.JSON(200, gin.H{
-		"message": "versão obtida",
-		"data":    baseapi.Version,
-	})
+func (v *Version) getVersion(ctx *gin.Context) (interface{}, error) {
+	return baseapi.Version, nil
 }
 
 // Mount associa o controlador ao grupo de rotas.
 func (v *Version) Mount(router *gin.RouterGroup) {
-	router.GET("/version", v.getVersion)
+	router.GET("/version", handler(v.getVersion))
 }
 
 // Cria um novo controlador para a versão.

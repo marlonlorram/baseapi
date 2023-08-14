@@ -1,0 +1,43 @@
+version: '3'
+
+# Carregando variáveis de ambiente
+dotenv:
+  - .env
+
+# Ativando modo silencioso
+silent: true
+
+# Definindo variáveis gerais
+vars:
+  APP_PATH_BUILD: "./cmd/baseapi"
+  VERSION:
+    sh: git describe --always --tags
+
+# Definições de tarefas
+tasks:
+  # Tarefa padrão
+  default:
+    deps: [build]
+    cmds:
+      - ./baseapi.exe
+
+  # Tarefa para configuração de produção
+  prod:
+    cmds:
+      - ./baseapi.exe
+
+  # Tarefa para configuração local
+  local:
+    deps: [build]
+    env:
+      SERVER_ADDR: 0.0.0.0:7788
+
+    cmds:
+      - |
+        # Executar a aplicação
+        ./baseapi.exe
+
+  # Compila a aplicação para um executável
+  build:
+    cmds:
+      - go build -o baseapi.exe -ldflags="-X 'github.com/marlonlorram/baseapi.Version={{.VERSION}}'" {{.APP_PATH_BUILD}}

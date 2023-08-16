@@ -73,3 +73,19 @@ func IsForbidden(err error) bool {
 	_, ok := err.(*forbidden)
 	return ok
 }
+
+// conflict é usando quando uma solicitação resulta em um conflito
+type conflict struct {
+	Err
+}
+
+// NewConflict cria um erro indicando que a operação resultou em um conflito.
+func NewConflict(msg string) error {
+	return &conflict{Err{message: msg}}
+}
+
+// IsConflict verifica se o erro é resultado de um conflito.
+func IsConflict(err error) bool {
+	_, ok := err.(*conflict)
+	return ok
+}

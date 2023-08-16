@@ -48,6 +48,8 @@ func newError(err error) int {
 		return http.StatusForbidden
 	case entities.IsBadRequest(err):
 		return http.StatusBadRequest
+	case entities.IsConflict(err):
+		return http.StatusConflict
 	default:
 		return http.StatusInternalServerError
 	}

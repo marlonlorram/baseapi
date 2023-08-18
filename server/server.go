@@ -15,6 +15,7 @@ import (
 type Bindings struct {
 	fx.In
 	Version httpapi.Version
+	Auth    *httpapi.Auth
 }
 
 // newRouter retorna uma instância Gin com as rotas predefinidas.
@@ -23,6 +24,7 @@ func newRouter(b Bindings) *gin.Engine {
 	apiV1 := router.Group("/api/v1")
 
 	b.Version.Mount(apiV1)
+	b.Auth.Mount(apiV1)
 	return router
 }
 

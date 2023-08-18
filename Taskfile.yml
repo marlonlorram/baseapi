@@ -31,6 +31,7 @@ tasks:
     deps: [build]
     env:
       SERVER_ADDR: 0.0.0.0:7788
+      SERVER_ALLOW_REGISTER: true
 
       # Database
       DATABASE_HOST: localhost
@@ -39,6 +40,9 @@ tasks:
       DATABASE_PASS: baseapi
       DATABASE_NAME: baseapiMM
       DATABASE_MECH: SCRAM-SHA-1
+
+      # JWT
+      JWT_SECRET: baseapi
 
     cmds:
       - |

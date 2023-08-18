@@ -13,6 +13,7 @@ import (
 	"github.com/marlonlorram/baseapi/ports"
 	"github.com/marlonlorram/baseapi/ports/database"
 	"github.com/marlonlorram/baseapi/server"
+	"github.com/marlonlorram/baseapi/usecases"
 )
 
 // newApp inicializa uma nova instância da aplicação fx com as configurações e
@@ -27,6 +28,7 @@ func newApp(ctx context.Context) *fx.App {
 
 		config.Build(),
 		database.Build(),
+		usecases.Build(),
 		ports.Build(),
 		server.Build(),
 	)

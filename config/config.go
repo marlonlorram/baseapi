@@ -14,14 +14,20 @@ var Prefix string
 
 // Config representa a configuração geral da aplicação.
 type Config struct {
-	Server Server `envconfig:"SERVER"`
-
+	Server   Server   `envconfig:"SERVER"`
 	Database Database `envconfig:"DATABASE"`
+	JWT      JWT      `envconfig:"JWT"`
+}
+
+// JWT representa a configuração do JWT.
+type JWT struct {
+	Secret string `envconfig:"SECRET" split_words:"true" required:"true" desc:"Chave secreta para assinatura do JWT"`
 }
 
 // Server define as propriedades de configuração do servidor.
 type Server struct {
-	Address string `envconfig:"ADDR" default:"0.0.0.0:7788" desc:"Endereço de escuta do servidor"`
+	Address       string `envconfig:"ADDR" default:"0.0.0.0:7788" desc:"Endereço de escuta do servidor"`
+	AllowRegister bool   `envconfig:"ALLOW_REGISTER" default:"true" desc:"Permitir registro de usuários"`
 }
 
 // Database representa as configurações necessárias para estabelecer uma conexão com o banco de dados.

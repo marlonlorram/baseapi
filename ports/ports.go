@@ -9,5 +9,6 @@ import (
 func Build() fx.Option {
 	return fx.Provide(
 		httpapi.NewVersion,
+		httpapi.NewAuth,
 	)
 }

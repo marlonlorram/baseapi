@@ -34,6 +34,34 @@ func (r *userRepository) FindName(ctx context.Context, name string) (*entities.U
 	return user, nil
 }
 
+// List lista todos os usuários.
+// Retorna uma lista de ponteiros para entidades de usuários
+// e um erro se algo der errado.
+func (r *userRepository) List(ctx context.Context) ([]*entities.User, error) {
+	users := make([]*entities.User, 0, 8)
+
+	cur, err := r.users.Find(ctx, bson.M{}, options.Find())
+	if err != nil {
+		return nil, err
+	}
+	defer cur.Close(ctx)
+
+	for cur.Next(ctx) {
+		var user entities.User
+		err := cur.Decode(&user)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, &user)
+	}
+
+	if err := cur.Err(); err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}
+
 // Insert insere um novo usuário no banco de dados e retorna o usuário com seu ID gerado.
 func (r *userRepository) Insert(ctx context.Context, user *entities.User) (*entities.User, error) {
 	result, err := r.users.InsertOne(ctx, user)

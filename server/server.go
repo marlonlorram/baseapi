@@ -15,8 +15,10 @@ import (
 // Bindings encapsula as dependências que serão injetadas
 type Bindings struct {
 	fx.In
+
 	Version httpapi.Version
 	Auth    *httpapi.Auth
+	User    *httpapi.User
 }
 
 // newRouter retorna uma instância Gin com as rotas predefinidas.
@@ -29,6 +31,7 @@ func newRouter(b Bindings) *gin.Engine {
 
 	b.Version.Mount(apiV1)
 	b.Auth.Mount(apiV1)
+	b.User.Mount(apiV1)
 	return router
 }
 

@@ -8,6 +8,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/marlonlorram/baseapi/config"
+	"github.com/marlonlorram/baseapi/internal/middleware"
 	"github.com/marlonlorram/baseapi/ports/httpapi"
 )
 
@@ -21,6 +22,9 @@ type Bindings struct {
 // newRouter retorna uma instância Gin com as rotas predefinidas.
 func newRouter(b Bindings) *gin.Engine {
 	router := gin.Default()
+
+	router.Use(middleware.NewCorsMiddleware())
+
 	apiV1 := router.Group("/api/v1")
 
 	b.Version.Mount(apiV1)

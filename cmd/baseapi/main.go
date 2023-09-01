@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/marlonlorram/baseapi/config"
+	"github.com/marlonlorram/baseapi/internal/middleware"
 	"github.com/marlonlorram/baseapi/ports"
 	"github.com/marlonlorram/baseapi/ports/database"
 	"github.com/marlonlorram/baseapi/server"
@@ -29,6 +30,7 @@ func newApp(ctx context.Context) *fx.App {
 		config.Build(),
 		database.Build(),
 		usecases.Build(),
+		middleware.Build(),
 		ports.Build(),
 		server.Build(),
 	)
